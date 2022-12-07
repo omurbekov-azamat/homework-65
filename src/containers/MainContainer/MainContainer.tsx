@@ -11,18 +11,18 @@ const MainContainer = () => {
   const [loading, setLoading] = useState(false);
 
   const fetchContent = useCallback(async () => {
-    try {
-      setLoading(true);
-      if (id === undefined) {
-        const contentResponse = await axiosApi.get<GotContent>('/pages/home/.json');
-        setContent(contentResponse.data);
-      } else {
-        const contentResponse = await axiosApi.get<GotContent>('/pages/' + id + '.json');
-        setContent(contentResponse.data);
+      try {
+        setLoading(true);
+        if (id === undefined) {
+          const contentResponse = await axiosApi.get<GotContent>('/pages/home/.json');
+          setContent(contentResponse.data);
+        } else {
+          const contentResponse = await axiosApi.get<GotContent>('/pages/' + id + '.json');
+          setContent(contentResponse.data);
+        }
+      } finally {
+        setLoading(false);
       }
-    } finally {
-      setLoading(false);
-    }
   }, [id]);
 
   useEffect(() => {
