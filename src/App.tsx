@@ -11,6 +11,7 @@ function App() {
       </header>
       <main className='container'>
         <Routes>
+          <Route path='/' element={<MainContainer/>}/>
           <Route path='/:id' element={<MainContainer/>}/>
         </Routes>
       </main>

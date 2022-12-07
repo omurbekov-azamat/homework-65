@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import axiosApi from "../../axiosApi";
 import Spinner from "../../components/Spinner/Spinner";
+import Content from "../../components/Content/Content";
 import {GotContent} from "../../types";
 
 const MainContainer = () => {
@@ -12,8 +13,13 @@ const MainContainer = () => {
   const fetchContent = useCallback(async () => {
     try {
       setLoading(true);
-      const contentResponse = await axiosApi.get<GotContent>('/pages/' + id + '.json');
-      setContent(contentResponse.data);
+      if (id === undefined) {
+        const contentResponse = await axiosApi.get<GotContent>('/pages/home/.json');
+        setContent(contentResponse.data);
+      } else {
+        const contentResponse = await axiosApi.get<GotContent>('/pages/' + id + '.json');
+        setContent(contentResponse.data);
+      }
     } finally {
       setLoading(false);
     }
@@ -23,15 +29,18 @@ const MainContainer = () => {
     fetchContent().catch(console.error);
   }, [fetchContent]);
 
-  if(loading) {
+  if (loading) {
     return (
       <Spinner/>
     )
   }
 
   return (
-    <div>
-    </div>
+    <>
+      {content && (
+        <Content title={content.title} content={content.content}/>
+      )}
+    </>
   );
 };
 
