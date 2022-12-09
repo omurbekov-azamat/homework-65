@@ -58,8 +58,9 @@ const EditForm = () => {
             className='form-control mt-2'
             onChange={onSelectChange}
             value={gotPage}
+            required
           >
-            <option value="select">Select Page</option>
+            <option value="">Select Page</option>
             <option value="home">Home</option>
             <option value="about">About</option>
             <option value="contacts">Contacts</option>
